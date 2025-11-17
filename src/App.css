@@ -1,0 +1,118 @@
+/* Reset + layout */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+font-family: "Pixelify Sans", sans-serif , monospace; 
+  background: #020202;
+  color: rgba(255,255,255,0.95);
+}
+
+/* ===== Background wrapper that covers whole viewport ===== */
+.app-bg-inline {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* blurred, full-screen background (uses CSS var set inline) */
+.app-bg-inline::before {
+  content: "";
+  position: fixed; /* fixed so it always fills the viewport */
+  inset: 0;
+  background-image: var(--bg-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  filter: blur(3px) brightness(0.68); /* reduced blur intensity */
+  transform: scale(1.03);
+  z-index: -2; /* behind content */
+  pointer-events: none;
+}
+
+/* subtle overlay to improve contrast */
+.app-bg-inline::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.22);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* App container (holds header + content) */
+.app {
+  width: 100%;
+  max-width: 1100px;
+  padding: 28px 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+
+/* ===== Header styling (top center) ===== */
+.game-header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centers horizontally */
+  text-align: center;
+  margin-top: 6px; /* small spacing from top */
+  color: white;
+}
+
+.game-header h1 {
+  margin: 0;
+  font-size: 1.9rem;
+  font-weight: 700;
+}
+
+.title-highlight {
+  color: yellow;
+  font-weight: 900;
+}
+
+/* smaller, lighter paragraph under heading */
+.lead {
+  margin: 8px 0 12px;
+  font-size: 0.95rem;
+  font-weight: 300;
+  opacity: 0.95;
+  max-width: 720px;
+}
+
+/* stats row */
+.stats {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.stat-item { font-size: 0.95rem; }
+.stat-label { opacity: 0.9; margin-right: 6px; }
+
+/* ===== Cards grid ===== */
+.content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* responsive tweaks */
+@media (max-width: 720px) {
+  .game-header h1 { font-size: 1.4rem; }
+  .lead { font-size: 0.9rem; }
+  .cards-grid { gap: 10px; grid-template-columns: repeat(auto-fit, minmax(74px, 1fr)); }
+}
+
